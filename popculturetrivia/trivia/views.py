@@ -1,6 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Question, Category
 
+def login(request):
+    return render(request, 'trivia/login.html')
+
+def register(request):
+    return render(request, 'trivia/register.html')
+
 def home(request):
     return render(request, 'trivia/home.html')
 
