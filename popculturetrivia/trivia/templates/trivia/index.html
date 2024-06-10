@@ -1,0 +1,19 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+</head>
+<body>
+    <div>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            <a href="{% url 'account_logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+        {% endif %}
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>
