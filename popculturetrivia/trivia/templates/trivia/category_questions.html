@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.name }} Questions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Questions for {{ category.name }}</h1>
+    <div class="container">
+        {% for question in questions %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ question.question_text }}</h5>
+                <form method="post" action="#">
+                    {% csrf_token %}
+                    <ul class="list-group list-group-flush">
+                        {% for choice in question.choices.all %}
+                        <li class="list-group-item">
+                            <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}"> {{ choice.choice_text }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
