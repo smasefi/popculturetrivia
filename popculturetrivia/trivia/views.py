@@ -38,3 +38,8 @@ def submit_answer(request, question_id):
         if selected_choice != is_correct:
             return redirect(reverse('category_questions', args=[question.category.id]))
         
+@login_required
+def leaderboard(request):
+    scores = Score.objects.all().order_by('-score') # highest to lowest
+    context = {'scores' : scores}
+    return render(request, 'leaderboard.html', context)
