@@ -22,9 +22,10 @@ load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY_NEW = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c6)cqq(^nytrov9ok6qd0w(0h=&bw=h07#w1vqpy3&=iqei%p='
+SECRET_KEY = SECRET_KEY_NEW
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
