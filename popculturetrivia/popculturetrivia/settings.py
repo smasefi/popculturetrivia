@@ -28,7 +28,7 @@ SECRET_KEY_NEW = os.environ.get('SECRET_KEY')
 SECRET_KEY = SECRET_KEY_NEW
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 

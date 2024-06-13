@@ -35,3 +35,6 @@ def submit_answer(request, question_id):
             score.score += 1
             score.save()
         return redirect(reverse('category_questions', args=[question.category.id]))
+        if selected_choice != is_correct:
+            return redirect(reverse('category_questions', args=[question.category.id]))
+        
