@@ -6,23 +6,38 @@
     <meta charset="UTF-8">
     <title>{{ category.name }} Questions</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .score-display {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+    
 </head>
 <body>
-    <h1>Questions for {{ category.name }}</h1>
     <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Questions for {{ category.name }}</h1>
+            </div>
+            <div class="col text-right">
+                <h3>Your Score: {{ score }}</h3>
+            </div>
+        </div>
         {% for question in questions %}
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">{{ question.question_text }}</h5>
-                <form method="post" action="#">
+                <form method="post" action="{% url 'submit_answer' question.id %}">
                     {% csrf_token %}
                     <ul class="list-group list-group-flush">
                         {% for choice in question.choices.all %}
                         <li class="list-group-item">
-                            <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}"> {{ choice.choice_text }}
+                            <input type="radio" name="choice" value="{{ choice.id }}"> {{ choice.choice_text }}
                         </li>
                         {% endfor %}
                     </ul>
+                    <button type="submit" class="btn btn-primary">Submit Answer</button>
                 </form>
             </div>
         </div>
