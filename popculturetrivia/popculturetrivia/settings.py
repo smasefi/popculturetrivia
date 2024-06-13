@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY_NEW = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c6)cqq(^nytrov9ok6qd0w(0h=&bw=h07#w1vqpy3&=iqei%p='
+SECRET_KEY = SECRET_KEY_NEW
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,7 +58,36 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
+
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
+
+#print(f"GOOGLE_CLIENT_ID: {GOOGLE_CLIENT_ID}")
+#print(f"GOOGLE_CLIENT_SECRET: {GOOGLE_CLIENT_SECRET}")
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': GOOGLE_CLIENT_ID,
+            'secret': GOOGLE_CLIENT_SECRET,
+            'key': ''
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +97,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'popculturetrivia.urls'
