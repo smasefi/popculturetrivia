@@ -42,4 +42,4 @@ def submit_answer(request, question_id):
 def leaderboard(request):
     scores = Score.objects.all().order_by('-score') # highest to lowest
     context = {'scores' : scores}
-    return render(request, 'leaderboard.html', context)
+    return render(request, 'trivia/leaderboard.html', context)
